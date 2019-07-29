@@ -1770,7 +1770,7 @@ type | [UpdateType](#updatetype) |
 ### Simple RPC
 
 
-ClosedChannels returns a description of all the closed channels that  this node was a participant in.
+ClosedChannels returns a description of all the closed channels that this node was a participant in.
 
 ```shell
 
@@ -3687,7 +3687,8 @@ GetNodeInfo returns the latest advertised, aggregated, and authenticated channel
 
 $ lncli getnodeinfo [command options] [arguments...]
 
-# --pub_key value  the 33-byte hex-encoded compressed public of the target node
+# --pub_key value     the 33-byte hex-encoded compressed public of the target node
+# --include_channels  if true, will return all known channels associated with the node
 ```
 ```python
 >>> import codecs, grpc, os
@@ -3777,6 +3778,7 @@ $ lncli queryroutes [command options] dest amt
 # --fee_limit value          maximum fee allowed in satoshis when sending the payment (default: 0)
 # --fee_limit_percent value  percentage of the payment's amount used as the maximum fee allowed when sending the payment (default: 0)
 # --final_cltv_delta value   (optional) number of blocks the last hop has to reveal the preimage (default: 0)
+# --use_mc                   use mission control probabilities
 ```
 ```python
 >>> import codecs, grpc, os
@@ -3795,6 +3797,7 @@ $ lncli queryroutes [command options] dest amt
         ignored_nodes=<array bytes>,
         ignored_edges=<array EdgeLocator>,
         source_pub_key=<string>,
+        use_mission_control=<bool>,
     )
 >>> response = stub.QueryRoutes(request, metadata=[('macaroon'), macaroon)])
 >>> print(response)
@@ -3825,6 +3828,7 @@ $ lncli queryroutes [command options] dest amt
     ignored_nodes: <array bytes>, 
     ignored_edges: <array EdgeLocator>, 
     source_pub_key: <string>, 
+    use_mission_control: <bool>, 
   } 
 > lightning.queryRoutes(request, function(err, response) {
     console.log(response);
@@ -3845,7 +3849,8 @@ final_cltv_delta | int32 | An optional CLTV delta from the current height that s
 fee_limit | [FeeLimit](#feelimit) | The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment. 
 ignored_nodes | array bytes | A list of nodes to ignore during path finding. 
 ignored_edges | [array EdgeLocator](#edgelocator) | A list of edges to ignore during path finding. 
-source_pub_key | string | The source node where the request route should originated from. If empty, self is assumed.  
+source_pub_key | string | The source node where the request route should originated from. If empty, self is assumed. 
+use_mission_control | bool | If set to true, edge probabilities from mission control will be used to get the optimal route.  
 ### gRPC Response: QueryRoutesResponse 
 
 
@@ -3891,6 +3896,7 @@ $ lncli getnetworkinfo [arguments...]
     "min_channel_size": <int64>,
     "max_channel_size": <int64>,
     "median_channel_size_sat": <int64>,
+    "num_zombie_chans": <uint64>,
 }
 ```
 ```javascript
@@ -3923,6 +3929,7 @@ $ lncli getnetworkinfo [arguments...]
     "min_channel_size": <int64>,
     "max_channel_size": <int64>,
     "median_channel_size_sat": <int64>,
+    "num_zombie_chans": <uint64>,
 }
 ```
 
@@ -3945,7 +3952,8 @@ total_network_capacity | int64 |
 avg_channel_size | double |  
 min_channel_size | int64 |  
 max_channel_size | int64 |  
-median_channel_size_sat | int64 |   
+median_channel_size_sat | int64 |  
+num_zombie_chans | uint64 | The number of edges marked as zombies.  
 
 # StopDaemon
 
@@ -4263,7 +4271,7 @@ UpdateChannelPolicy allows the caller to update the fee schedule and channel pol
 $ lncli updatechanpolicy [command options] base_fee_msat fee_rate time_lock_delta [channel_point]
 
 # --base_fee_msat value    the base fee in milli-satoshis that will be charged for each forwarded HTLC, regardless of payment size (default: 0)
-# --fee_rate value         the fee rate that will be charged proportionally based on the value of each forwarded HTLC, the lowest possible rate is 0.000001
+# --fee_rate value         the fee rate that will be charged proportionally based on the value of each forwarded HTLC, the lowest possible rate is 0 with a granularity of 0.000001 (millionths)
 # --time_lock_delta value  the CLTV delta that will be applied to all forwarded HTLCs (default: 0)
 # --chan_point value       The channel whose fee policy should be updated, if nil the policies for all channels will be updated. Takes the form of: txid:output_index
 ```
@@ -4346,8 +4354,9 @@ ForwardingHistory allows the caller to query the htlcswitch for a record of all 
 # Query the HTLC switch's internal forwarding log for all completed
 # payment circuits (HTLCs) over a particular time range (--start_time and
 # --end_time). The start and end times are meant to be expressed in
-# seconds since the Unix epoch. If a start and end time aren't provided,
-# then events over the past 24 hours are queried for.
+# seconds since the Unix epoch. If --start_time isn't provided,
+# then 24 hours ago is used.  If --end_time isn't provided,
+# then the current time is used.
 # The max number of events returned is 50k. The default number is 100,
 # callers can use the --max_events param to modify this value.
 # Finally, callers can skip a series of events using the --index_offset
@@ -4673,7 +4682,7 @@ RestoreChannelBackups accepts a set of singular channel backups, or a single enc
 
 ```shell
 
-# Allows a suer to restore a Static Channel Backup (SCB) that was
+# Allows a user to restore a Static Channel Backup (SCB) that was
 # obtained either via the exportchanbackup command, or from lnd's
 # automatically manged channels.backup file. This command should be used
 # if a user is attempting to restore a channel due to data loss on a
@@ -4917,7 +4926,9 @@ pending_htlcs | [array HTLC](#htlc) | The list of active, uncleared HTLCs curren
 csv_delay | uint32 | The CSV delay expressed in relative blocks. If the channel is force closed, we will need to wait for this many blocks before we can regain our funds. 
 private | bool | Whether this channel is advertised to the network or not. 
 initiator | bool | True if we were the ones that created the channel. 
-chan_status_flags | string | A set of flags showing the current state of the channel.  
+chan_status_flags | string | A set of flags showing the current state of the channel. 
+local_chan_reserve_sat | int64 | The minimum satoshis this node is required to reserve in its balance. 
+remote_chan_reserve_sat | int64 | The minimum satoshis the other node is required to reserve in its balance.  
 
 ## ChannelBackup
 
@@ -5536,7 +5547,8 @@ total_network_capacity | int64 |
 avg_channel_size | double |  
 min_channel_size | int64 |  
 max_channel_size | int64 |  
-median_channel_size_sat | int64 |   
+median_channel_size_sat | int64 |  
+num_zombie_chans | uint64 | The number of edges marked as zombies.  
 
 ## NetworkInfoRequest
 
@@ -5661,12 +5673,14 @@ payment_hash | string | The payment hash
 value | int64 | Deprecated, use value_sat or value_msat. 
 creation_date | int64 | The date of this payment 
 path | array string | The path this payment took 
-fee | int64 | The fee paid for this payment in satoshis 
+fee | int64 | Deprecated, use fee_sat or fee_msat. 
 payment_preimage | string | The payment preimage 
 value_sat | int64 | The value of the payment in satoshis 
 value_msat | int64 | The value of the payment in milli-satoshis 
 payment_request | string | The optional payment request being fulfilled. 
-status | [PaymentStatus](#paymentstatus) | The status of the payment.  
+status | [PaymentStatus](#paymentstatus) | The status of the payment. 
+fee_sat | int64 | The fee paid for this payment in satoshis 
+fee_msat | int64 | The fee paid for this payment in milli-satoshis  
 
 ## PaymentHash
 
@@ -5738,7 +5752,9 @@ remote_node_pub | string |
 channel_point | string |  
 capacity | int64 |  
 local_balance | int64 |  
-remote_balance | int64 |   
+remote_balance | int64 |  
+local_chan_reserve_sat | int64 | The minimum satoshis this node is required to reserve in its balance. 
+remote_chan_reserve_sat | int64 | The minimum satoshis the other node is required to reserve in its balance.  
 
 ## PendingOpenChannel
 
@@ -5807,7 +5823,8 @@ final_cltv_delta | int32 | An optional CLTV delta from the current height that s
 fee_limit | [FeeLimit](#feelimit) | The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment. 
 ignored_nodes | array bytes | A list of nodes to ignore during path finding. 
 ignored_edges | [array EdgeLocator](#edgelocator) | A list of edges to ignore during path finding. 
-source_pub_key | string | The source node where the request route should originated from. If empty, self is assumed.  
+source_pub_key | string | The source node where the request route should originated from. If empty, self is assumed. 
+use_mission_control | bool | If set to true, edge probabilities from mission control will be used to get the optimal route.  
 
 ## QueryRoutesResponse
 
@@ -5859,7 +5876,8 @@ min_htlc | int64 |
 fee_base_msat | int64 |  
 fee_rate_milli_msat | int64 |  
 disabled | bool |  
-max_htlc_msat | uint64 |   
+max_htlc_msat | uint64 |  
+last_update | uint32 |   
 
 ## SendCoinsRequest
 

@@ -106,9 +106,9 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-total_balance | string | The balance of the wallet 
-confirmed_balance | string | The confirmed balance of a wallet(with >= 1 confirmations) 
-unconfirmed_balance | string | The unconfirmed balance of a wallet(with 0 confirmations)  
+total_balance | string | / The balance of the wallet 
+confirmed_balance | string | / The confirmed balance of a wallet(with >= 1 confirmations) 
+unconfirmed_balance | string | / The unconfirmed balance of a wallet(with 0 confirmations)  
 
 
 
@@ -167,8 +167,8 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-balance | string | Sum of channels balances denominated in satoshis 
-pending_open_balance | string | Sum of channels pending balances denominated in satoshis  
+balance | string | / Sum of channels balances denominated in satoshis 
+pending_open_balance | string | / Sum of channels pending balances denominated in satoshis  
 
 
 
@@ -221,8 +221,8 @@ ChangePassword changes the password of the encrypted wallet. This will automatic
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-current_password | byte | body |  current_password should be the current valid passphrase used to unlock the daemon.
-new_password | byte | body |  new_password should be the new passphrase that will be needed to unlock the daemon.
+current_password | byte | body | * current_password should be the current valid passphrase used to unlock the daemon.
+new_password | byte | body | * new_password should be the new passphrase that will be needed to unlock the daemon.
 
 ### Response 
 
@@ -288,7 +288,7 @@ private_only | boolean | query |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channels | [array Channel](#channel) | The list of active channels  
+channels | [array Channel](#channel) | / The list of active channels  
 
 
 
@@ -367,29 +367,29 @@ $ curl -X POST --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://lo
 ```
 
 ### POST /v1/channels
- OpenChannelSync is a synchronous version of the OpenChannel RPC call. This call is meant to be consumed by clients to the REST proxy. As with all other sync calls, all byte slices are intended to be populated as hex encoded strings.
+* OpenChannelSync is a synchronous version of the OpenChannel RPC call. This call is meant to be consumed by clients to the REST proxy. As with all other sync calls, all byte slices are intended to be populated as hex encoded strings.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-node_pubkey | byte | body | The pubkey of the node to open a channel with
-node_pubkey_string | string | body | The hex encoded pubkey of the node to open a channel with
-local_funding_amount | string | body | The number of satoshis the wallet should commit to the channel
-push_sat | string | body | The number of satoshis to push to the remote side as part of the initial commitment state
-target_conf | int32 | body | The target number of blocks that the funding transaction should be confirmed by.
-sat_per_byte | string | body | A manual fee rate set in sat/byte that should be used when crafting the funding transaction.
-private | boolean | body | Whether this channel should be private, not announced to the greater network.
-min_htlc_msat | string | body | The minimum value in millisatoshi we will require for incoming HTLCs on the channel.
-remote_csv_delay | int64 | body | The delay we require on the remote's commitment transaction. If this is not set, it will be scaled automatically with the channel size.
-min_confs | int32 | body | The minimum number of confirmations each one of your outputs used for the funding transaction must satisfy.
-spend_unconfirmed | boolean | body | Whether unconfirmed outputs should be used as inputs for the funding transaction.
+node_pubkey | byte | body | / The pubkey of the node to open a channel with
+node_pubkey_string | string | body | / The hex encoded pubkey of the node to open a channel with
+local_funding_amount | string | body | / The number of satoshis the wallet should commit to the channel
+push_sat | string | body | / The number of satoshis to push to the remote side as part of the initial commitment state
+target_conf | int32 | body | / The target number of blocks that the funding transaction should be confirmed by.
+sat_per_byte | string | body | / A manual fee rate set in sat/byte that should be used when crafting the funding transaction.
+private | boolean | body | / Whether this channel should be private, not announced to the greater network.
+min_htlc_msat | string | body | / The minimum value in millisatoshi we will require for incoming HTLCs on the channel.
+remote_csv_delay | int64 | body | / The delay we require on the remote's commitment transaction. If this is not set, it will be scaled automatically with the channel size.
+min_confs | int32 | body | / The minimum number of confirmations each one of your outputs used for the funding transaction must satisfy.
+spend_unconfirmed | boolean | body | / Whether unconfirmed outputs should be used as inputs for the funding transaction.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-funding_txid_bytes | byte | Txid of the funding transaction 
-funding_txid_str | string | Hex-encoded string representing the funding transaction 
-output_index | int64 | The index of the output of the funding transaction  
+funding_txid_bytes | byte | / Txid of the funding transaction 
+funding_txid_str | string | / Hex-encoded string representing the funding transaction 
+output_index | int64 | / The index of the output of the funding transaction  
 
 
 
@@ -557,7 +557,7 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
 ```
 
 ### GET /v1/channels/backup
- ExportAllChannelBackups returns static channel backups for all existing channels known to lnd. A set of regular singular static channel backups for each channel are returned. Additionally, a multi-channel backup is returned as well, which contains a single encrypted blob containing the backups of each channel.
+* ExportAllChannelBackups returns static channel backups for all existing channels known to lnd. A set of regular singular static channel backups for each channel are returned. Additionally, a multi-channel backup is returned as well, which contains a single encrypted blob containing the backups of each channel.
 
 This request has no parameters.
 
@@ -565,8 +565,8 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-single_chan_backups | [ChannelBackups](#channelbackups) |  The set of new channels that have been added since the last channel backup snapshot was requested. 
-multi_chan_backup | [MultiChanBackup](#multichanbackup) |  A multi-channel backup that covers all open channels currently known to lnd.  
+single_chan_backups | [ChannelBackups](#channelbackups) | * The set of new channels that have been added since the last channel backup snapshot was requested. 
+multi_chan_backup | [MultiChanBackup](#multichanbackup) | * A multi-channel backup that covers all open channels currently known to lnd.  
 
 
 
@@ -620,14 +620,14 @@ Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
 chan_point.funding_txid_str | string | path | 
 chan_point.output_index | int64 | path | 
-chan_point.funding_txid_bytes | string | query | Txid of the funding transaction.
+chan_point.funding_txid_bytes | string | query | / Txid of the funding transaction.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_point | [ChannelPoint](#channelpoint) |  Identifies the channel that this backup belongs to. 
-chan_backup | byte |  Is an encrypted single-chan backup. this can be passed to RestoreChannelBackups, or the WalletUnlocker Init and Unlock methods in order to trigger the recovery protocol.  
+chan_point | [ChannelPoint](#channelpoint) | * Identifies the channel that this backup belongs to. 
+chan_backup | byte | * Is an encrypted single-chan backup. this can be passed to RestoreChannelBackups, or the WalletUnlocker Init and Unlock methods in order to trigger the recovery protocol.  
 
 
 
@@ -747,12 +747,12 @@ $ curl -X POST --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://lo
 ```
 
 ### POST /v1/channels/backup/verify
- VerifyChanBackup allows a caller to verify the integrity of a channel backup snapshot. This method will accept either a packed Single or a packed Multi. Specifying both will result in an error.
+* VerifyChanBackup allows a caller to verify the integrity of a channel backup snapshot. This method will accept either a packed Single or a packed Multi. Specifying both will result in an error.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-single_chan_backups | [ChannelBackups](#channelbackups) | body |  The set of new channels that have been added since the last channel backup snapshot was requested.
-multi_chan_backup | [MultiChanBackup](#multichanbackup) | body |  A multi-channel backup that covers all open channels currently known to lnd.
+single_chan_backups | [ChannelBackups](#channelbackups) | body | * The set of new channels that have been added since the last channel backup snapshot was requested.
+multi_chan_backup | [MultiChanBackup](#multichanbackup) | body | * A multi-channel backup that covers all open channels currently known to lnd.
 
 ### Response 
 
@@ -805,7 +805,7 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
 ```
 
 ### GET /v1/channels/closed
-ClosedChannels returns a description of all the closed channels that  this node was a participant in.
+ClosedChannels returns a description of all the closed channels that this node was a participant in.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
@@ -888,11 +888,11 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-total_limbo_balance | string | The balance in satoshis encumbered in pending channels 
-pending_open_channels | [array PendingChannelsResponsePendingOpenChannel](#pendingchannelsresponsependingopenchannel) | Channels pending opening 
-pending_closing_channels | [array PendingChannelsResponseClosedChannel](#pendingchannelsresponseclosedchannel) | Channels pending closing 
-pending_force_closing_channels | [array PendingChannelsResponseForceClosedChannel](#pendingchannelsresponseforceclosedchannel) | Channels pending force closing 
-waiting_close_channels | [array PendingChannelsResponseWaitingCloseChannel](#pendingchannelsresponsewaitingclosechannel) | Channels waiting for closing tx to confirm  
+total_limbo_balance | string | / The balance in satoshis encumbered in pending channels 
+pending_open_channels | [array PendingChannelsResponsePendingOpenChannel](#pendingchannelsresponsependingopenchannel) | / Channels pending opening 
+pending_closing_channels | [array PendingChannelsResponseClosedChannel](#pendingchannelsresponseclosedchannel) | / Channels pending closing 
+pending_force_closing_channels | [array PendingChannelsResponseForceClosedChannel](#pendingchannelsresponseforceclosedchannel) | / Channels pending force closing 
+waiting_close_channels | [array PendingChannelsResponseWaitingCloseChannel](#pendingchannelsresponsewaitingclosechannel) | / Channels waiting for closing tx to confirm  
 
 
 
@@ -975,20 +975,20 @@ $ curl -X POST --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://lo
 ```
 
 ### POST /v1/channels/transactions
- SendPaymentSync is the synchronous non-streaming version of SendPayment. This RPC is intended to be consumed by clients of the REST proxy. Additionally, this RPC expects the destination's public key and the payment hash (if any) to be encoded as hex strings.
+* SendPaymentSync is the synchronous non-streaming version of SendPayment. This RPC is intended to be consumed by clients of the REST proxy. Additionally, this RPC expects the destination's public key and the payment hash (if any) to be encoded as hex strings.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-dest | byte | body | The identity pubkey of the payment recipient
-dest_string | string | body | The hex-encoded identity pubkey of the payment recipient
-amt | string | body | Number of satoshis to send.
-payment_hash | byte | body | The hash to use within the payment's HTLC
-payment_hash_string | string | body | The hex-encoded hash to use within the payment's HTLC
-payment_request | string | body |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
-final_cltv_delta | int32 | body |  The CLTV delta from the current height that should be used to set the timelock for the final hop.
-fee_limit | [FeeLimit](#feelimit) | body |  The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment.
-outgoing_chan_id | string | body |  The channel id of the channel that must be taken to the first hop. If zero, any channel may be used.
-cltv_limit | int64 | body |  An optional maximum total time lock for the route. If zero, there is no maximum enforced.
+dest | byte | body | / The identity pubkey of the payment recipient
+dest_string | string | body | / The hex-encoded identity pubkey of the payment recipient
+amt | string | body | / Number of satoshis to send.
+payment_hash | byte | body | / The hash to use within the payment's HTLC
+payment_hash_string | string | body | / The hex-encoded hash to use within the payment's HTLC
+payment_request | string | body | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
+final_cltv_delta | int32 | body | * The CLTV delta from the current height that should be used to set the timelock for the final hop.
+fee_limit | [FeeLimit](#feelimit) | body | * The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment.
+outgoing_chan_id | string | body | * The channel id of the channel that must be taken to the first hop. If zero, any channel may be used.
+cltv_limit | int64 | body | *  An optional maximum total time lock for the route. If zero, there is no maximum enforced.
 
 ### Response 
 
@@ -1066,13 +1066,13 @@ $ curl -X POST --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://lo
 ```
 
 ### POST /v1/channels/transactions/route
- SendToRouteSync is a synchronous version of SendToRoute. It Will block until the payment either fails or succeeds.
+* SendToRouteSync is a synchronous version of SendToRoute. It Will block until the payment either fails or succeeds.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-payment_hash | byte | body | The payment hash to use for the HTLC.
-payment_hash_string | string | body | An optional hex-encoded payment hash to be used for the HTLC.
-route | [Route](#route) | body | Route that should be used to attempt to complete the payment.
+payment_hash | byte | body | / The payment hash to use for the HTLC.
+payment_hash_string | string | body | / An optional hex-encoded payment hash to be used for the HTLC.
+route | [Route](#route) | body | / Route that should be used to attempt to complete the payment.
 
 ### Response 
 
@@ -1146,11 +1146,11 @@ UpdateChannelPolicy allows the caller to update the fee schedule and channel pol
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-global | boolean | body | If set, then this update applies to all currently active channels.
-chan_point | [ChannelPoint](#channelpoint) | body | If set, this update will target a specific channel.
-base_fee_msat | string | body | The base fee charged regardless of the number of milli-satoshis sent.
-fee_rate | double | body | The effective fee rate in milli-satoshis. The precision of this value goes up to 6 decimal places, so 1e-6.
-time_lock_delta | int64 | body | The required timelock delta for HTLCs forwarded over the channel.
+global | boolean | body | / If set, then this update applies to all currently active channels.
+chan_point | [ChannelPoint](#channelpoint) | body | / If set, this update will target a specific channel.
+base_fee_msat | string | body | / The base fee charged regardless of the number of milli-satoshis sent.
+fee_rate | double | body | / The effective fee rate in milli-satoshis. The precision of this value goes up to 6 decimal places, so 1e-6.
+time_lock_delta | int64 | body | / The required timelock delta for HTLCs forwarded over the channel.
 
 ### Response 
 
@@ -1220,10 +1220,10 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel_fees | [array ChannelFeeReport](#channelfeereport) | An array of channel fee reports which describes the current fee schedule for each channel. 
-day_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 24 hrs. 
-week_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 1 week. 
-month_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 1 month.  
+channel_fees | [array ChannelFeeReport](#channelfeereport) | / An array of channel fee reports which describes the current fee schedule for each channel. 
+day_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 24 hrs. 
+week_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 1 week. 
+month_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 1 month.  
 
 
 
@@ -1268,19 +1268,19 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
 ```
 
 ### GET /v1/genseed
- GenSeed is the first method that should be used to instantiate a new lnd instance. This method allows a caller to generate a new aezeed cipher seed given an optional passphrase. If provided, the passphrase will be necessary to decrypt the cipherseed to expose the internal wallet seed.
+* GenSeed is the first method that should be used to instantiate a new lnd instance. This method allows a caller to generate a new aezeed cipher seed given an optional passphrase. If provided, the passphrase will be necessary to decrypt the cipherseed to expose the internal wallet seed.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-aezeed_passphrase | string | query |  aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
-seed_entropy | string | query |  seed_entropy is an optional 16-bytes generated via CSPRNG. If not specified, then a fresh set of randomness will be used to create the seed.
+aezeed_passphrase | string | query | * aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
+seed_entropy | string | query | * seed_entropy is an optional 16-bytes generated via CSPRNG. If not specified, then a fresh set of randomness will be used to create the seed.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-cipher_seed_mnemonic | array string |  cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This field is optional, as if not provided, then the daemon will generate a new cipher seed for the user. Otherwise, then the daemon will attempt to recover the wallet state linked to this cipher seed. 
-enciphered_seed | byte |  enciphered_seed are the raw aezeed cipher seed bytes. This is the raw cipher text before run through our mnemonic encoding scheme.  
+cipher_seed_mnemonic | array string | * cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This field is optional, as if not provided, then the daemon will generate a new cipher seed for the user. Otherwise, then the daemon will attempt to recover the wallet state linked to this cipher seed. 
+enciphered_seed | byte | * enciphered_seed are the raw aezeed cipher seed bytes. This is the raw cipher text before run through our mnemonic encoding scheme.  
 
 
 
@@ -1378,21 +1378,21 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-identity_pubkey | string | The identity pubkey of the current node. 
-alias | string | If applicable, the alias of the current node, e.g. "bob" 
-num_pending_channels | int64 | Number of pending channels 
-num_active_channels | int64 | Number of active channels 
-num_peers | int64 | Number of peers 
-block_height | int64 | The node's current view of the height of the best block 
-block_hash | string | The node's current view of the hash of the best block 
-synced_to_chain | boolean | Whether the wallet's view is synced to the main chain 
-testnet | boolean |  Whether the current node is connected to testnet. This field is  deprecated and the network field should be used instead 
-uris | array string | The URIs of the current node. 
-best_header_timestamp | string | Timestamp of the block best known to the wallet 
-version | string | The version of the LND software that the node is running. 
-num_inactive_channels | int64 | Number of inactive channels 
-chains | [array Chain](#chain) | A list of active chains the node is connected to 
-color | string | The color of the current node in hex code format  
+identity_pubkey | string | / The identity pubkey of the current node. 
+alias | string | / If applicable, the alias of the current node, e.g. "bob" 
+num_pending_channels | int64 | / Number of pending channels 
+num_active_channels | int64 | / Number of active channels 
+num_peers | int64 | / Number of peers 
+block_height | int64 | / The node's current view of the height of the best block 
+block_hash | string | / The node's current view of the hash of the best block 
+synced_to_chain | boolean | / Whether the wallet's view is synced to the main chain 
+testnet | boolean | *  Whether the current node is connected to testnet. This field is  deprecated and the network field should be used instead 
+uris | array string | / The URIs of the current node. 
+best_header_timestamp | string | / Timestamp of the block best known to the wallet 
+version | string | / The version of the LND software that the node is running. 
+num_inactive_channels | int64 | / Number of inactive channels 
+chains | [array Chain](#chain) | / A list of active chains the node is connected to 
+color | string | / The color of the current node in hex code format  
 
 
 
@@ -1447,14 +1447,14 @@ DescribeGraph returns a description of the latest graph state from the point of 
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-include_unannounced | boolean | query |  Whether unannounced channels are included in the response or not. If set, unannounced channels are included. Unannounced channels are both private channels, and public channels that are not yet announced to the network.
+include_unannounced | boolean | query | * Whether unannounced channels are included in the response or not. If set, unannounced channels are included. Unannounced channels are both private channels, and public channels that are not yet announced to the network.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-nodes | [array LightningNode](#lightningnode) | The list of `LightningNode`s in this channel graph 
-edges | [array ChannelEdge](#channeledge) | The list of `ChannelEdge`s in this channel graph  
+nodes | [array LightningNode](#lightningnode) | / The list of `LightningNode`s in this channel graph 
+edges | [array ChannelEdge](#channeledge) | / The list of `ChannelEdge`s in this channel graph  
 
 
 
@@ -1533,7 +1533,7 @@ chan_id | string | path |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel. 
+channel_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel. 
 chan_point | string |  
 last_update | int64 |  
 node1_pub | string |  
@@ -1561,6 +1561,7 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
     "min_channel_size": <string>, 
     "max_channel_size": <string>, 
     "median_channel_size_sat": <string>, 
+    "num_zombie_chans": <string>, 
 }
 ```
 ```python
@@ -1582,6 +1583,7 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
     "min_channel_size": <string>, 
     "max_channel_size": <string>, 
     "median_channel_size_sat": <string>, 
+    "num_zombie_chans": <string>, 
 }
 ```
 ```javascript
@@ -1611,6 +1613,7 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
     "min_channel_size": <string>, 
     "max_channel_size": <string>, 
     "median_channel_size_sat": <string>, 
+    "num_zombie_chans": <string>, 
 }
 ```
 
@@ -1632,7 +1635,8 @@ total_network_capacity | string |
 avg_channel_size | double |  
 min_channel_size | string |  
 max_channel_size | string |  
-median_channel_size_sat | string |   
+median_channel_size_sat | string |  
+num_zombie_chans | string | The number of edges marked as zombies.  
 
 
 
@@ -1694,16 +1698,16 @@ GetNodeInfo returns the latest advertised, aggregated, and authenticated channel
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
 pub_key | string | path | 
-include_channels | boolean | query | If true, will include all known channels associated with the node.
+include_channels | boolean | query | / If true, will include all known channels associated with the node.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-node | [LightningNode](#lightningnode) |  An individual vertex/node within the channel graph. A node is connected to other nodes by one or more channel edges emanating from it. As the graph is directed, a node will also have an incoming edge attached to it for each outgoing edge. 
-num_channels | int64 | The total number of channels for the node. 
-total_capacity | string | The sum of all channels capacity for the node, denominated in satoshis. 
-channels | [array ChannelEdge](#channeledge) | A list of all public channels for the node.  
+node | [LightningNode](#lightningnode) | * An individual vertex/node within the channel graph. A node is connected to other nodes by one or more channel edges emanating from it. As the graph is directed, a node will also have an incoming edge attached to it for each outgoing edge. 
+num_channels | int64 | / The total number of channels for the node. 
+total_capacity | string | / The sum of all channels capacity for the node, denominated in satoshis. 
+channels | [array ChannelEdge](#channeledge) | / A list of all public channels for the node.  
 
 
 
@@ -1757,11 +1761,12 @@ Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
 pub_key | string | path | 
 amt | string | path | 
-final_cltv_delta | int32 | query | An optional CLTV delta from the current height that should be used for the timelock of the final hop.
-fee_limit.fixed | string | query | The fee limit expressed as a fixed amount of satoshis.
-fee_limit.percent | string | query | The fee limit expressed as a percentage of the payment amount.
-ignored_nodes | array | query |  A list of nodes to ignore during path finding.
-source_pub_key | string | query |  The source node where the request route should originated from. If empty, self is assumed.
+final_cltv_delta | int32 | query | / An optional CLTV delta from the current height that should be used for the timelock of the final hop.
+fee_limit.fixed | string | query | / The fee limit expressed as a fixed amount of satoshis.
+fee_limit.percent | string | query | / The fee limit expressed as a percentage of the payment amount.
+ignored_nodes | array | query | * A list of nodes to ignore during path finding.
+source_pub_key | string | query | * The source node where the request route should originated from. If empty, self is assumed.
+use_mission_control | boolean | query | * If set to true, edge probabilities from mission control will be used to get the optimal route.
 
 ### Response 
 
@@ -1822,15 +1827,15 @@ $ curl -X POST --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://lo
 ```
 
 ### POST /v1/initwallet
- InitWallet is used when lnd is starting up for the first time to fully initialize the daemon and its internal wallet. At the very least a wallet password must be provided. This will be used to encrypt sensitive material on disk.
+*  InitWallet is used when lnd is starting up for the first time to fully initialize the daemon and its internal wallet. At the very least a wallet password must be provided. This will be used to encrypt sensitive material on disk.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-wallet_password | byte | body |  wallet_password is the passphrase that should be used to encrypt the wallet. This MUST be at least 8 chars in length. After creation, this password is required to unlock the daemon.
-cipher_seed_mnemonic | array string | body |  cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This may have been generated by the GenSeed method, or be an existing seed.
-aezeed_passphrase | byte | body |  aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
-recovery_window | int32 | body |  recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
-channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | body |  channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
+wallet_password | byte | body | * wallet_password is the passphrase that should be used to encrypt the wallet. This MUST be at least 8 chars in length. After creation, this password is required to unlock the daemon.
+cipher_seed_mnemonic | array string | body | * cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This may have been generated by the GenSeed method, or be an existing seed.
+aezeed_passphrase | byte | body | * aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
+recovery_window | int32 | body | * recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
+channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | body | * channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
 
 ### Response 
 
@@ -1948,33 +1953,33 @@ LookupInvoice attempts to look up an invoice according to its payment hash. The 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
 r_hash_str | string | path | 
-r_hash | string | query | The payment hash of the invoice to be looked up.
+r_hash | string | query | / The payment hash of the invoice to be looked up.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-memo | string |  An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used. 
-receipt | byte | Deprecated. An optional cryptographic receipt of payment which is not implemented. 
-r_preimage | byte |  The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage 
-r_hash | byte | The hash of the preimage 
-value | string | The value of this invoice in satoshis 
-settled | boolean | Whether this invoice has been fulfilled 
-creation_date | string | When this invoice was created 
-settle_date | string | When this invoice was settled 
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
-description_hash | byte |  Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request. 
-expiry | string | Payment request expiry time in seconds. Default is 3600 (1 hour). 
-fallback_addr | string | Fallback on-chain address. 
-cltv_expiry | string | Delta to use for the time-lock of the CLTV extended to the final hop. 
-route_hints | [array RouteHint](#routehint) |  Route hints that can each be individually used to assist in reaching the invoice's destination. 
-private | boolean | Whether this invoice should include routing hints for private channels. 
-add_index | string |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one. 
-settle_index | string |  The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one. 
-amt_paid | string | Deprecated, use amt_paid_sat or amt_paid_msat. 
-amt_paid_sat | string |  The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
-amt_paid_msat | string |  The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
-state | [InvoiceInvoiceState](#invoiceinvoicestate) |  The state the invoice is in.  
+memo | string | * An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used. 
+receipt | byte | * Deprecated. An optional cryptographic receipt of payment which is not implemented. 
+r_preimage | byte | * The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage 
+r_hash | byte | / The hash of the preimage 
+value | string | / The value of this invoice in satoshis 
+settled | boolean | / Whether this invoice has been fulfilled 
+creation_date | string | / When this invoice was created 
+settle_date | string | / When this invoice was settled 
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
+description_hash | byte | * Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request. 
+expiry | string | / Payment request expiry time in seconds. Default is 3600 (1 hour). 
+fallback_addr | string | / Fallback on-chain address. 
+cltv_expiry | string | / Delta to use for the time-lock of the CLTV extended to the final hop. 
+route_hints | [array RouteHint](#routehint) | * Route hints that can each be individually used to assist in reaching the invoice's destination. 
+private | boolean | / Whether this invoice should include routing hints for private channels. 
+add_index | string | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one. 
+settle_index | string | * The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one. 
+amt_paid | string | / Deprecated, use amt_paid_sat or amt_paid_msat. 
+amt_paid_sat | string | * The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
+amt_paid_msat | string | * The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
+state | [InvoiceInvoiceState](#invoiceinvoicestate) | * The state the invoice is in.  
 
 
 
@@ -2032,18 +2037,18 @@ ListInvoices returns a list of all the invoices currently stored within the data
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-pending_only | boolean | query | If set, only unsettled invoices will be returned in the response.
-index_offset | string | query |  The index of an invoice that will be used as either the start or end of a query to determine which invoices should be returned in the response.
-num_max_invoices | string | query | The max number of invoices to return in the response to this query.
-reversed | boolean | query |  If set, the invoices returned will result from seeking backwards from the specified index offset. This can be used to paginate backwards.
+pending_only | boolean | query | / If set, only unsettled invoices will be returned in the response.
+index_offset | string | query | * The index of an invoice that will be used as either the start or end of a query to determine which invoices should be returned in the response.
+num_max_invoices | string | query | / The max number of invoices to return in the response to this query.
+reversed | boolean | query | * If set, the invoices returned will result from seeking backwards from the specified index offset. This can be used to paginate backwards.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-invoices | [array Invoice](#invoice) |  A list of invoices from the time slice of the time series specified in the request. 
-last_index_offset | string |  The index of the last item in the set of returned invoices. This can be used to seek further, pagination style. 
-first_index_offset | string |  The index of the last item in the set of returned invoices. This can be used to seek backwards, pagination style.  
+invoices | [array Invoice](#invoice) | * A list of invoices from the time slice of the time series specified in the request. 
+last_index_offset | string | * The index of the last item in the set of returned invoices. This can be used to seek further, pagination style. 
+first_index_offset | string | * The index of the last item in the set of returned invoices. This can be used to seek backwards, pagination style.  
 
 
 
@@ -2146,35 +2151,35 @@ AddInvoice attempts to add a new invoice to the invoice database. Any duplicated
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-memo | string | body |  An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used.
-receipt | byte | body | Deprecated. An optional cryptographic receipt of payment which is not implemented.
-r_preimage | byte | body |  The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage
-r_hash | byte | body | The hash of the preimage
-value | string | body | The value of this invoice in satoshis
-settled | boolean | body | Whether this invoice has been fulfilled
-creation_date | string | body | When this invoice was created
-settle_date | string | body | When this invoice was settled
-payment_request | string | body |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
-description_hash | byte | body |  Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request.
-expiry | string | body | Payment request expiry time in seconds. Default is 3600 (1 hour).
-fallback_addr | string | body | Fallback on-chain address.
-cltv_expiry | string | body | Delta to use for the time-lock of the CLTV extended to the final hop.
-route_hints | [array RouteHint](#routehint) | body |  Route hints that can each be individually used to assist in reaching the invoice's destination.
-private | boolean | body | Whether this invoice should include routing hints for private channels.
-add_index | string | body |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
-settle_index | string | body |  The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one.
-amt_paid | string | body | Deprecated, use amt_paid_sat or amt_paid_msat.
-amt_paid_sat | string | body |  The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
-amt_paid_msat | string | body |  The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
-state | [InvoiceInvoiceState](#invoiceinvoicestate) | body |  The state the invoice is in.
+memo | string | body | * An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used.
+receipt | byte | body | * Deprecated. An optional cryptographic receipt of payment which is not implemented.
+r_preimage | byte | body | * The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage
+r_hash | byte | body | / The hash of the preimage
+value | string | body | / The value of this invoice in satoshis
+settled | boolean | body | / Whether this invoice has been fulfilled
+creation_date | string | body | / When this invoice was created
+settle_date | string | body | / When this invoice was settled
+payment_request | string | body | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
+description_hash | byte | body | * Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request.
+expiry | string | body | / Payment request expiry time in seconds. Default is 3600 (1 hour).
+fallback_addr | string | body | / Fallback on-chain address.
+cltv_expiry | string | body | / Delta to use for the time-lock of the CLTV extended to the final hop.
+route_hints | [array RouteHint](#routehint) | body | * Route hints that can each be individually used to assist in reaching the invoice's destination.
+private | boolean | body | / Whether this invoice should include routing hints for private channels.
+add_index | string | body | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
+settle_index | string | body | * The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one.
+amt_paid | string | body | / Deprecated, use amt_paid_sat or amt_paid_msat.
+amt_paid_sat | string | body | * The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
+amt_paid_msat | string | body | * The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
+state | [InvoiceInvoiceState](#invoiceinvoicestate) | body | * The state the invoice is in.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
 r_hash | byte |  
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
-add_index | string |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.  
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
+add_index | string | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.  
 
 
 
@@ -2284,38 +2289,38 @@ $ curl -X GET --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://loc
 ```
 
 ### GET /v1/invoices/subscribe
- SubscribeInvoices returns a uni-directional stream (server -> client) for notifying the client of newly added/settled invoices. The caller can optionally specify the add_index and/or the settle_index. If the add_index is specified, then we'll first start by sending add invoice events for all invoices with an add_index greater than the specified value.  If the settle_index is specified, the next, we'll send out all settle events for invoices with a settle_index greater than the specified value.  One or both of these fields can be set. If no fields are set, then we'll only send out the latest add/settle events.
+* SubscribeInvoices returns a uni-directional stream (server -> client) for notifying the client of newly added/settled invoices. The caller can optionally specify the add_index and/or the settle_index. If the add_index is specified, then we'll first start by sending add invoice events for all invoices with an add_index greater than the specified value.  If the settle_index is specified, the next, we'll send out all settle events for invoices with a settle_index greater than the specified value.  One or both of these fields can be set. If no fields are set, then we'll only send out the latest add/settle events.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-add_index | string | query |  If specified (non-zero), then we'll first start by sending out notifications for all added indexes with an add_index greater than this value. This allows callers to catch up on any events they missed while they weren't connected to the streaming RPC.
-settle_index | string | query |  If specified (non-zero), then we'll first start by sending out notifications for all settled indexes with an settle_index greater than this value. This allows callers to catch up on any events they missed while they weren't connected to the streaming RPC.
+add_index | string | query | * If specified (non-zero), then we'll first start by sending out notifications for all added indexes with an add_index greater than this value. This allows callers to catch up on any events they missed while they weren't connected to the streaming RPC.
+settle_index | string | query | * If specified (non-zero), then we'll first start by sending out notifications for all settled indexes with an settle_index greater than this value. This allows callers to catch up on any events they missed while they weren't connected to the streaming RPC.
 
 ### Response (streaming)
 
 Field | Type | Description
 ----- | ---- | ----------- 
-memo | string |  An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used. 
-receipt | byte | Deprecated. An optional cryptographic receipt of payment which is not implemented. 
-r_preimage | byte |  The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage 
-r_hash | byte | The hash of the preimage 
-value | string | The value of this invoice in satoshis 
-settled | boolean | Whether this invoice has been fulfilled 
-creation_date | string | When this invoice was created 
-settle_date | string | When this invoice was settled 
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
-description_hash | byte |  Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request. 
-expiry | string | Payment request expiry time in seconds. Default is 3600 (1 hour). 
-fallback_addr | string | Fallback on-chain address. 
-cltv_expiry | string | Delta to use for the time-lock of the CLTV extended to the final hop. 
-route_hints | [array RouteHint](#routehint) |  Route hints that can each be individually used to assist in reaching the invoice's destination. 
-private | boolean | Whether this invoice should include routing hints for private channels. 
-add_index | string |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one. 
-settle_index | string |  The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one. 
-amt_paid | string | Deprecated, use amt_paid_sat or amt_paid_msat. 
-amt_paid_sat | string |  The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
-amt_paid_msat | string |  The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
-state | [InvoiceInvoiceState](#invoiceinvoicestate) |  The state the invoice is in.  
+memo | string | * An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used. 
+receipt | byte | * Deprecated. An optional cryptographic receipt of payment which is not implemented. 
+r_preimage | byte | * The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage 
+r_hash | byte | / The hash of the preimage 
+value | string | / The value of this invoice in satoshis 
+settled | boolean | / Whether this invoice has been fulfilled 
+creation_date | string | / When this invoice was created 
+settle_date | string | / When this invoice was settled 
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient. 
+description_hash | byte | * Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request. 
+expiry | string | / Payment request expiry time in seconds. Default is 3600 (1 hour). 
+fallback_addr | string | / Fallback on-chain address. 
+cltv_expiry | string | / Delta to use for the time-lock of the CLTV extended to the final hop. 
+route_hints | [array RouteHint](#routehint) | * Route hints that can each be individually used to assist in reaching the invoice's destination. 
+private | boolean | / Whether this invoice should include routing hints for private channels. 
+add_index | string | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one. 
+settle_index | string | * The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one. 
+amt_paid | string | / Deprecated, use amt_paid_sat or amt_paid_msat. 
+amt_paid_sat | string | * The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
+amt_paid_msat | string | * The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well. 
+state | [InvoiceInvoiceState](#invoiceinvoicestate) | * The state the invoice is in.  
 
 
 
@@ -2367,13 +2372,13 @@ NewAddress creates a new address under control of the local wallet.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-type | string | query | The address type.
+type | string | query | / The address type.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-address | string | The newly generated wallet address  
+address | string | / The newly generated wallet address  
 
 
 
@@ -2425,13 +2430,13 @@ ListPayments returns a list of all outgoing payments.
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-include_incomplete | boolean | query |  If true, then return payments that have not yet fully completed. This means that pending payments, as well as failed payments will show up if this field is set to True.
+include_incomplete | boolean | query | * If true, then return payments that have not yet fully completed. This means that pending payments, as well as failed payments will show up if this field is set to True.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-payments | [array Payment](#payment) | The list of payments  
+payments | [array Payment](#payment) | / The list of payments  
 
 
 
@@ -2473,7 +2478,7 @@ $ curl -X DELETE --cacert $LND_DIR/tls.cert --header "$MACAROON_HEADER" https://
 ```
 
 ### DELETE /v1/payments
- DeleteAllPayments deletes all outgoing payments from DB.
+* DeleteAllPayments deletes all outgoing payments from DB.
 
 This request has no parameters.
 
@@ -2630,7 +2635,7 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-peers | [array Peer](#peer) | The list of currently connected peers  
+peers | [array Peer](#peer) | / The list of currently connected peers  
 
 
 
@@ -2686,8 +2691,8 @@ ConnectPeer attempts to establish a connection to a remote peer. This is at the 
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-addr | [LightningAddress](#lightningaddress) | body | Lightning address of the peer, in the format `<pubkey>@host`
-perm | boolean | body | If set, the daemon will attempt to persistently connect to the target peer.  Otherwise, the call will be synchronous.
+addr | [LightningAddress](#lightningaddress) | body | / Lightning address of the peer, in the format `<pubkey>@host`
+perm | boolean | body | * If set, the daemon will attempt to persistently connect to the target peer.  Otherwise, the call will be synchronous.
 
 ### Response 
 
@@ -2803,13 +2808,13 @@ SignMessage signs a message with this node's private key. The returned signature
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-msg | byte | body | The message to be signed
+msg | byte | body | / The message to be signed
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-signature | string | The signature for the given message  
+signature | string | / The signature for the given message  
 
 
 
@@ -2878,17 +2883,17 @@ ForwardingHistory allows the caller to query the htlcswitch for a record of all 
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-start_time | string | body | Start time is the starting point of the forwarding history request. All records beyond this point will be included, respecting the end time, and the index offset.
-end_time | string | body | End time is the end point of the forwarding history request. The response will carry at most 50k records between the start time and the end time. The index offset can be used to implement pagination.
-index_offset | int64 | body | Index offset is the offset in the time series to start at. As each response can only contain 50k records, callers can use this to skip around within a packed time series.
-num_max_events | int64 | body | The max number of events to return in the response to this query.
+start_time | string | body | / Start time is the starting point of the forwarding history request. All records beyond this point will be included, respecting the end time, and the index offset.
+end_time | string | body | / End time is the end point of the forwarding history request. The response will carry at most 50k records between the start time and the end time. The index offset can be used to implement pagination.
+index_offset | int64 | body | / Index offset is the offset in the time series to start at. As each response can only contain 50k records, callers can use this to skip around within a packed time series.
+num_max_events | int64 | body | / The max number of events to return in the response to this query.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-forwarding_events | [array ForwardingEvent](#forwardingevent) | A list of forwarding events from the time slice of the time series specified in the request. 
-last_offset_index | int64 | The index of the last time in the set of returned forwarding events. Can be used to seek further, pagination style.  
+forwarding_events | [array ForwardingEvent](#forwardingevent) | / A list of forwarding events from the time slice of the time series specified in the request. 
+last_offset_index | int64 | / The index of the last time in the set of returned forwarding events. Can be used to seek further, pagination style.  
 
 
 
@@ -2944,7 +2949,7 @@ This request has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-transactions | [array Transaction](#transaction) | The list of transactions relevant to the wallet.  
+transactions | [array Transaction](#transaction) | / The list of transactions relevant to the wallet.  
 
 
 
@@ -3009,17 +3014,17 @@ SendCoins executes a request to send coins to a particular address. Unlike SendM
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-addr | string | body | The address to send coins to
-amount | string | body | The amount in satoshis to send
-target_conf | int32 | body | The target number of blocks that this transaction should be confirmed by.
-sat_per_byte | string | body | A manual fee rate set in sat/byte that should be used when crafting the transaction.
-send_all | boolean | body |  If set, then the amount field will be ignored, and lnd will attempt to send all the coins under control of the internal wallet to the specified address.
+addr | string | body | / The address to send coins to
+amount | string | body | / The amount in satoshis to send
+target_conf | int32 | body | / The target number of blocks that this transaction should be confirmed by.
+sat_per_byte | string | body | / A manual fee rate set in sat/byte that should be used when crafting the transaction.
+send_all | boolean | body | * If set, then the amount field will be ignored, and lnd will attempt to send all the coins under control of the internal wallet to the specified address.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-txid | string | The transaction ID of the transaction  
+txid | string | / The transaction ID of the transaction  
 
 
 
@@ -3074,14 +3079,14 @@ EstimateFee asks the chain backend to estimate the fee rate and total fees for a
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-target_conf | int32 | query | The target number of blocks that this transaction should be confirmed by.
+target_conf | int32 | query | / The target number of blocks that this transaction should be confirmed by.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-fee_sat | string | The total fee in satoshis. 
-feerate_sat_per_byte | string | The fee rate in satoshi/byte.  
+fee_sat | string | / The total fee in satoshis. 
+feerate_sat_per_byte | string | / The fee rate in satoshi/byte.  
 
 
 
@@ -3136,9 +3141,9 @@ UnlockWallet is used at startup of lnd to provide a password to unlock the walle
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-wallet_password | byte | body |  wallet_password should be the current valid passphrase for the daemon. This will be required to decrypt on-disk material that the daemon requires to function properly.
-recovery_window | int32 | body |  recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
-channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | body |  channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
+wallet_password | byte | body | * wallet_password should be the current valid passphrase for the daemon. This will be required to decrypt on-disk material that the daemon requires to function properly.
+recovery_window | int32 | body | * recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
+channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | body | * channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
 
 ### Response 
 
@@ -3195,14 +3200,14 @@ ListUnspent returns a list of all utxos spendable by the wallet with a number of
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-min_confs | int32 | query | The minimum number of confirmations to be included.
-max_confs | int32 | query | The maximum number of confirmations to be included.
+min_confs | int32 | query | / The minimum number of confirmations to be included.
+max_confs | int32 | query | / The maximum number of confirmations to be included.
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-utxos | [array Utxo](#utxo) | A list of utxos  
+utxos | [array Utxo](#utxo) | / A list of utxos  
 
 
 
@@ -3267,15 +3272,15 @@ VerifyMessage verifies a signature over a msg. The signature must be zbase32 enc
 
 Field | Type | Placement | Description
 ----- | ---- | --------- | ----------- 
-msg | byte | body | The message over which the signature is to be verified
-signature | string | body | The signature to be verified over the given message
+msg | byte | body | / The message over which the signature is to be verified
+signature | string | body | / The signature to be verified over the given message
 
 ### Response 
 
 Field | Type | Description
 ----- | ---- | ----------- 
-valid | boolean | Whether the signature was valid over the given message 
-pubkey | string | The pubkey recovered from the signature  
+valid | boolean | / Whether the signature was valid over the given message 
+pubkey | string | / The pubkey recovered from the signature  
 
 
 
@@ -3311,20 +3316,20 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | The pending channel to be closed
-closing_txid | string | The transaction id of the closing transaction
+channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | / The pending channel to be closed
+closing_txid | string | / The transaction id of the closing transaction
 
 
 ## PendingChannelsResponseForceClosedChannel
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | The pending channel to be force closed
-closing_txid | string | The transaction id of the closing transaction
-limbo_balance | string | The balance in satoshis encumbered in this pending channel
-maturity_height | int64 | The height at which funds can be swept into the wallet
+channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | / The pending channel to be force closed
+closing_txid | string | / The transaction id of the closing transaction
+limbo_balance | string | / The balance in satoshis encumbered in this pending channel
+maturity_height | int64 | / The height at which funds can be swept into the wallet
 blocks_til_maturity | int32 | Remaining # of blocks until the commitment output can be swept. Negative values indicate how many blocks have passed since becoming mature.
-recovered_balance | string | The total value of funds successfully recovered from this channel
+recovered_balance | string | / The total value of funds successfully recovered from this channel
 pending_htlcs | [array PendingHTLC](#pendinghtlc) | 
 
 
@@ -3337,25 +3342,27 @@ channel_point | string |
 capacity | string | 
 local_balance | string | 
 remote_balance | string | 
+local_chan_reserve_sat | string | / The minimum satoshis this node is required to reserve in its balance.
+remote_chan_reserve_sat | string | * The minimum satoshis the other node is required to reserve in its balance.
 
 
 ## PendingChannelsResponsePendingOpenChannel
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | The pending channel
-confirmation_height | int64 | The height at which this channel will be confirmed
-commit_fee | string |  The amount calculated to be paid in fees for the current set of commitment transactions. The fee amount is persisted with the channel in order to allow the fee amount to be removed and recalculated with each channel state update, including updates that happen after a system restart.
-commit_weight | string | The weight of the commitment transaction
-fee_per_kw | string |  The required number of satoshis per kilo-weight that the requester will pay at all times, for both the funding transaction and commitment transaction. This value can later be updated once the channel is open.
+channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | / The pending channel
+confirmation_height | int64 | / The height at which this channel will be confirmed
+commit_fee | string | * The amount calculated to be paid in fees for the current set of commitment transactions. The fee amount is persisted with the channel in order to allow the fee amount to be removed and recalculated with each channel state update, including updates that happen after a system restart.
+commit_weight | string | / The weight of the commitment transaction
+fee_per_kw | string | * The required number of satoshis per kilo-weight that the requester will pay at all times, for both the funding transaction and commitment transaction. This value can later be updated once the channel is open.
 
 
 ## PendingChannelsResponseWaitingCloseChannel
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | The pending channel waiting for closing tx to confirm
-limbo_balance | string | The balance in satoshis encumbered in this channel
+channel | [PendingChannelsResponsePendingChannel](#pendingchannelsresponsependingchannel) | / The pending channel waiting for closing tx to confirm
+limbo_balance | string | / The balance in satoshis encumbered in this channel
 
 
 ## AbandonChannelResponse
@@ -3368,8 +3375,8 @@ This definition has no parameters.
 Field | Type | Description
 ----- | ---- | ----------- 
 r_hash | byte | 
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
-add_index | string |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
+add_index | string | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
 
 
 ## AddressType
@@ -3381,24 +3388,24 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chain | string | The blockchain the node is on (eg bitcoin, litecoin)
-network | string | The network the node is on (eg regtest, testnet, mainnet)
+chain | string | / The blockchain the node is on (eg bitcoin, litecoin)
+network | string | / The network the node is on (eg regtest, testnet, mainnet)
 
 
 ## ChanBackupSnapshot
 
 Field | Type | Description
 ----- | ---- | ----------- 
-single_chan_backups | [ChannelBackups](#channelbackups) |  The set of new channels that have been added since the last channel backup snapshot was requested.
-multi_chan_backup | [MultiChanBackup](#multichanbackup) |  A multi-channel backup that covers all open channels currently known to lnd.
+single_chan_backups | [ChannelBackups](#channelbackups) | * The set of new channels that have been added since the last channel backup snapshot was requested.
+multi_chan_backup | [MultiChanBackup](#multichanbackup) | * A multi-channel backup that covers all open channels currently known to lnd.
 
 
 ## ChangePasswordRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-current_password | byte |  current_password should be the current valid passphrase used to unlock the daemon.
-new_password | byte |  new_password should be the new passphrase that will be needed to unlock the daemon.
+current_password | byte | * current_password should be the current valid passphrase used to unlock the daemon.
+new_password | byte | * new_password should be the new passphrase that will be needed to unlock the daemon.
 
 
 ## ChangePasswordResponse
@@ -3410,64 +3417,66 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-active | boolean | Whether this channel is active or not
-remote_pubkey | string | The identity pubkey of the remote node
-channel_point | string |  The outpoint (txid:index) of the funding transaction. With this value, Bob will be able to generate a signature for Alice's version of the commitment transaction.
-chan_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
-capacity | string | The total amount of funds held in this channel
-local_balance | string | This node's current balance in this channel
-remote_balance | string | The counterparty's current balance in this channel
-commit_fee | string |  The amount calculated to be paid in fees for the current set of commitment transactions. The fee amount is persisted with the channel in order to allow the fee amount to be removed and recalculated with each channel state update, including updates that happen after a system restart.
-commit_weight | string | The weight of the commitment transaction
-fee_per_kw | string |  The required number of satoshis per kilo-weight that the requester will pay at all times, for both the funding transaction and commitment transaction. This value can later be updated once the channel is open.
-unsettled_balance | string | The unsettled balance in this channel
-total_satoshis_sent | string |  The total number of satoshis we've sent within this channel.
-total_satoshis_received | string |  The total number of satoshis we've received within this channel.
-num_updates | string |  The total number of updates conducted within this channel.
-pending_htlcs | [array HTLC](#htlc) |  The list of active, uncleared HTLCs currently pending within the channel.
-csv_delay | int64 |  The CSV delay expressed in relative blocks. If the channel is force closed, we will need to wait for this many blocks before we can regain our funds.
-private | boolean | Whether this channel is advertised to the network or not.
-initiator | boolean | True if we were the ones that created the channel.
-chan_status_flags | string | A set of flags showing the current state of the channel.
+active | boolean | / Whether this channel is active or not
+remote_pubkey | string | / The identity pubkey of the remote node
+channel_point | string | * The outpoint (txid:index) of the funding transaction. With this value, Bob will be able to generate a signature for Alice's version of the commitment transaction.
+chan_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
+capacity | string | / The total amount of funds held in this channel
+local_balance | string | / This node's current balance in this channel
+remote_balance | string | / The counterparty's current balance in this channel
+commit_fee | string | * The amount calculated to be paid in fees for the current set of commitment transactions. The fee amount is persisted with the channel in order to allow the fee amount to be removed and recalculated with each channel state update, including updates that happen after a system restart.
+commit_weight | string | / The weight of the commitment transaction
+fee_per_kw | string | * The required number of satoshis per kilo-weight that the requester will pay at all times, for both the funding transaction and commitment transaction. This value can later be updated once the channel is open.
+unsettled_balance | string | / The unsettled balance in this channel
+total_satoshis_sent | string | * The total number of satoshis we've sent within this channel.
+total_satoshis_received | string | * The total number of satoshis we've received within this channel.
+num_updates | string | * The total number of updates conducted within this channel.
+pending_htlcs | [array HTLC](#htlc) | * The list of active, uncleared HTLCs currently pending within the channel.
+csv_delay | int64 | * The CSV delay expressed in relative blocks. If the channel is force closed, we will need to wait for this many blocks before we can regain our funds.
+private | boolean | / Whether this channel is advertised to the network or not.
+initiator | boolean | / True if we were the ones that created the channel.
+chan_status_flags | string | / A set of flags showing the current state of the channel.
+local_chan_reserve_sat | string | / The minimum satoshis this node is required to reserve in its balance.
+remote_chan_reserve_sat | string | * The minimum satoshis the other node is required to reserve in its balance.
 
 
 ## ChannelBackup
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_point | [ChannelPoint](#channelpoint) |  Identifies the channel that this backup belongs to.
-chan_backup | byte |  Is an encrypted single-chan backup. this can be passed to RestoreChannelBackups, or the WalletUnlocker Init and Unlock methods in order to trigger the recovery protocol.
+chan_point | [ChannelPoint](#channelpoint) | * Identifies the channel that this backup belongs to.
+chan_backup | byte | * Is an encrypted single-chan backup. this can be passed to RestoreChannelBackups, or the WalletUnlocker Init and Unlock methods in order to trigger the recovery protocol.
 
 
 ## ChannelBackups
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_backups | [array ChannelBackup](#channelbackup) |  A set of single-chan static channel backups.
+chan_backups | [array ChannelBackup](#channelbackup) | * A set of single-chan static channel backups.
 
 
 ## ChannelBalanceResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-balance | string | Sum of channels balances denominated in satoshis
-pending_open_balance | string | Sum of channels pending balances denominated in satoshis
+balance | string | / Sum of channels balances denominated in satoshis
+pending_open_balance | string | / Sum of channels pending balances denominated in satoshis
 
 
 ## ChannelCloseSummary
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel_point | string | The outpoint (txid:index) of the funding transaction.
-chan_id | string | The unique channel ID for the channel.
-chain_hash | string | The hash of the genesis block that this channel resides within.
-closing_tx_hash | string | The txid of the transaction which ultimately closed this channel.
-remote_pubkey | string | Public key of the remote peer that we formerly had a channel with.
-capacity | string | Total capacity of the channel.
-close_height | int64 | Height at which the funding transaction was spent.
-settled_balance | string | Settled balance at the time of channel closure
-time_locked_balance | string | The sum of all the time-locked outputs at the time of channel closure
-close_type | [ChannelCloseSummaryClosureType](#channelclosesummaryclosuretype) | Details on how the channel was closed.
+channel_point | string | / The outpoint (txid:index) of the funding transaction.
+chan_id | string | /  The unique channel ID for the channel.
+chain_hash | string | / The hash of the genesis block that this channel resides within.
+closing_tx_hash | string | / The txid of the transaction which ultimately closed this channel.
+remote_pubkey | string | / Public key of the remote peer that we formerly had a channel with.
+capacity | string | / Total capacity of the channel.
+close_height | int64 | / Height at which the funding transaction was spent.
+settled_balance | string | / Settled balance at the time of channel closure
+time_locked_balance | string | / The sum of all the time-locked outputs at the time of channel closure
+close_type | [ChannelCloseSummaryClosureType](#channelclosesummaryclosuretype) | / Details on how the channel was closed.
 
 
 ## ChannelCloseUpdate
@@ -3482,7 +3491,7 @@ success | boolean |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
+channel_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
 chan_point | string | 
 last_update | int64 | 
 node1_pub | string | 
@@ -3496,7 +3505,7 @@ node2_policy | [RoutingPolicy](#routingpolicy) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
+chan_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
 chan_point | [ChannelPoint](#channelpoint) | 
 capacity | string | 
 routing_policy | [RoutingPolicy](#routingpolicy) | 
@@ -3519,18 +3528,18 @@ type | [ChannelEventUpdateUpdateType](#channeleventupdateupdatetype) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_point | string | The channel that this fee report belongs to.
-base_fee_msat | string | The base fee charged regardless of the number of milli-satoshis sent.
-fee_per_mil | string | The amount charged per milli-satoshis transferred expressed in millionths of a satoshi.
-fee_rate | double | The effective fee rate in milli-satoshis. Computed by dividing the fee_per_mil value by 1 million.
+chan_point | string | / The channel that this fee report belongs to.
+base_fee_msat | string | / The base fee charged regardless of the number of milli-satoshis sent.
+fee_per_mil | string | / The amount charged per milli-satoshis transferred expressed in millionths of a satoshi.
+fee_rate | double | / The effective fee rate in milli-satoshis. Computed by dividing the fee_per_mil value by 1 million.
 
 
 ## ChannelGraph
 
 Field | Type | Description
 ----- | ---- | ----------- 
-nodes | [array LightningNode](#lightningnode) | The list of `LightningNode`s in this channel graph
-edges | [array ChannelEdge](#channeledge) | The list of `ChannelEdge`s in this channel graph
+nodes | [array LightningNode](#lightningnode) | / The list of `LightningNode`s in this channel graph
+edges | [array ChannelEdge](#channeledge) | / The list of `ChannelEdge`s in this channel graph
 
 
 ## ChannelOpenUpdate
@@ -3544,9 +3553,9 @@ channel_point | [ChannelPoint](#channelpoint) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-funding_txid_bytes | byte | Txid of the funding transaction
-funding_txid_str | string | Hex-encoded string representing the funding transaction
-output_index | int64 | The index of the output of the funding transaction
+funding_txid_bytes | byte | / Txid of the funding transaction
+funding_txid_str | string | / Hex-encoded string representing the funding transaction
+output_index | int64 | / The index of the output of the funding transaction
 
 
 ## CloseStatusUpdate
@@ -3561,7 +3570,7 @@ chan_close | [ChannelCloseUpdate](#channelcloseupdate) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
+chan_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
 capacity | string | 
 closed_height | int64 | 
 chan_point | [ChannelPoint](#channelpoint) | 
@@ -3578,8 +3587,8 @@ channels | [array ChannelCloseSummary](#channelclosesummary) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-addr | [LightningAddress](#lightningaddress) | Lightning address of the peer, in the format `<pubkey>@host`
-perm | boolean | If set, the daemon will attempt to persistently connect to the target peer.  Otherwise, the call will be synchronous.
+addr | [LightningAddress](#lightningaddress) | / Lightning address of the peer, in the format `<pubkey>@host`
+perm | boolean | * If set, the daemon will attempt to persistently connect to the target peer.  Otherwise, the call will be synchronous.
 
 
 ## ConnectPeerResponse
@@ -3608,86 +3617,86 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-fee_sat | string | The total fee in satoshis.
-feerate_sat_per_byte | string | The fee rate in satoshi/byte.
+fee_sat | string | / The total fee in satoshis.
+feerate_sat_per_byte | string | / The fee rate in satoshi/byte.
 
 
 ## FeeLimit
 
 Field | Type | Description
 ----- | ---- | ----------- 
-fixed | string | The fee limit expressed as a fixed amount of satoshis.
-percent | string | The fee limit expressed as a percentage of the payment amount.
+fixed | string | / The fee limit expressed as a fixed amount of satoshis.
+percent | string | / The fee limit expressed as a percentage of the payment amount.
 
 
 ## FeeReportResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channel_fees | [array ChannelFeeReport](#channelfeereport) | An array of channel fee reports which describes the current fee schedule for each channel.
-day_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 24 hrs.
-week_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 1 week.
-month_fee_sum | string | The total amount of fee revenue (in satoshis) the switch has collected over the past 1 month.
+channel_fees | [array ChannelFeeReport](#channelfeereport) | / An array of channel fee reports which describes the current fee schedule for each channel.
+day_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 24 hrs.
+week_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 1 week.
+month_fee_sum | string | / The total amount of fee revenue (in satoshis) the switch has collected over the past 1 month.
 
 
 ## ForwardingEvent
 
 Field | Type | Description
 ----- | ---- | ----------- 
-timestamp | string | Timestamp is the time (unix epoch offset) that this circuit was completed.
-chan_id_in | string | The incoming channel ID that carried the HTLC that created the circuit.
-chan_id_out | string | The outgoing channel ID that carried the preimage that completed the circuit.
-amt_in | string | The total amount (in satoshis) of the incoming HTLC that created half the circuit.
-amt_out | string | The total amount (in satoshis) of the outgoing HTLC that created the second half of the circuit.
-fee | string | The total fee (in satoshis) that this payment circuit carried.
-fee_msat | string | The total fee (in milli-satoshis) that this payment circuit carried.
+timestamp | string | / Timestamp is the time (unix epoch offset) that this circuit was completed.
+chan_id_in | string | / The incoming channel ID that carried the HTLC that created the circuit.
+chan_id_out | string | / The outgoing channel ID that carried the preimage that completed the circuit.
+amt_in | string | / The total amount (in satoshis) of the incoming HTLC that created half the circuit.
+amt_out | string | / The total amount (in satoshis) of the outgoing HTLC that created the second half of the circuit.
+fee | string | / The total fee (in satoshis) that this payment circuit carried.
+fee_msat | string | / The total fee (in milli-satoshis) that this payment circuit carried.
 
 
 ## ForwardingHistoryRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-start_time | string | Start time is the starting point of the forwarding history request. All records beyond this point will be included, respecting the end time, and the index offset.
-end_time | string | End time is the end point of the forwarding history request. The response will carry at most 50k records between the start time and the end time. The index offset can be used to implement pagination.
-index_offset | int64 | Index offset is the offset in the time series to start at. As each response can only contain 50k records, callers can use this to skip around within a packed time series.
-num_max_events | int64 | The max number of events to return in the response to this query.
+start_time | string | / Start time is the starting point of the forwarding history request. All records beyond this point will be included, respecting the end time, and the index offset.
+end_time | string | / End time is the end point of the forwarding history request. The response will carry at most 50k records between the start time and the end time. The index offset can be used to implement pagination.
+index_offset | int64 | / Index offset is the offset in the time series to start at. As each response can only contain 50k records, callers can use this to skip around within a packed time series.
+num_max_events | int64 | / The max number of events to return in the response to this query.
 
 
 ## ForwardingHistoryResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-forwarding_events | [array ForwardingEvent](#forwardingevent) | A list of forwarding events from the time slice of the time series specified in the request.
-last_offset_index | int64 | The index of the last time in the set of returned forwarding events. Can be used to seek further, pagination style.
+forwarding_events | [array ForwardingEvent](#forwardingevent) | / A list of forwarding events from the time slice of the time series specified in the request.
+last_offset_index | int64 | / The index of the last time in the set of returned forwarding events. Can be used to seek further, pagination style.
 
 
 ## GenSeedResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-cipher_seed_mnemonic | array string |  cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This field is optional, as if not provided, then the daemon will generate a new cipher seed for the user. Otherwise, then the daemon will attempt to recover the wallet state linked to this cipher seed.
-enciphered_seed | byte |  enciphered_seed are the raw aezeed cipher seed bytes. This is the raw cipher text before run through our mnemonic encoding scheme.
+cipher_seed_mnemonic | array string | * cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This field is optional, as if not provided, then the daemon will generate a new cipher seed for the user. Otherwise, then the daemon will attempt to recover the wallet state linked to this cipher seed.
+enciphered_seed | byte | * enciphered_seed are the raw aezeed cipher seed bytes. This is the raw cipher text before run through our mnemonic encoding scheme.
 
 
 ## GetInfoResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-identity_pubkey | string | The identity pubkey of the current node.
-alias | string | If applicable, the alias of the current node, e.g. "bob"
-num_pending_channels | int64 | Number of pending channels
-num_active_channels | int64 | Number of active channels
-num_peers | int64 | Number of peers
-block_height | int64 | The node's current view of the height of the best block
-block_hash | string | The node's current view of the hash of the best block
-synced_to_chain | boolean | Whether the wallet's view is synced to the main chain
-testnet | boolean |  Whether the current node is connected to testnet. This field is  deprecated and the network field should be used instead
-uris | array string | The URIs of the current node.
-best_header_timestamp | string | Timestamp of the block best known to the wallet
-version | string | The version of the LND software that the node is running.
-num_inactive_channels | int64 | Number of inactive channels
-chains | [array Chain](#chain) | A list of active chains the node is connected to
-color | string | The color of the current node in hex code format
+identity_pubkey | string | / The identity pubkey of the current node.
+alias | string | / If applicable, the alias of the current node, e.g. "bob"
+num_pending_channels | int64 | / Number of pending channels
+num_active_channels | int64 | / Number of active channels
+num_peers | int64 | / Number of peers
+block_height | int64 | / The node's current view of the height of the best block
+block_hash | string | / The node's current view of the hash of the best block
+synced_to_chain | boolean | / Whether the wallet's view is synced to the main chain
+testnet | boolean | *  Whether the current node is connected to testnet. This field is  deprecated and the network field should be used instead
+uris | array string | / The URIs of the current node.
+best_header_timestamp | string | / Timestamp of the block best known to the wallet
+version | string | / The version of the LND software that the node is running.
+num_inactive_channels | int64 | / Number of inactive channels
+chains | [array Chain](#chain) | / A list of active chains the node is connected to
+color | string | / The color of the current node in hex code format
 
 
 ## GraphTopologyUpdate
@@ -3713,36 +3722,36 @@ expiration_height | int64 |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_id | string |  The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
+chan_id | string | * The unique channel ID for the channel. The first 3 bytes are the block height, the next 3 the index within the block, and the last 2 bytes are the output index for the channel.
 chan_capacity | string | 
 amt_to_forward | string | 
 fee | string | 
 expiry | int64 | 
 amt_to_forward_msat | string | 
 fee_msat | string | 
-pub_key | string |  An optional public key of the hop. If the public key is given, the payment can be executed without relying on a copy of the channel graph.
+pub_key | string | * An optional public key of the hop. If the public key is given, the payment can be executed without relying on a copy of the channel graph.
 
 
 ## HopHint
 
 Field | Type | Description
 ----- | ---- | ----------- 
-node_id | string | The public key of the node at the start of the channel.
-chan_id | string | The unique identifier of the channel.
-fee_base_msat | int64 | The base fee of the channel denominated in millisatoshis.
-fee_proportional_millionths | int64 |  The fee rate of the channel for sending one satoshi across it denominated in millionths of a satoshi.
-cltv_expiry_delta | int64 | The time-lock delta of the channel.
+node_id | string | / The public key of the node at the start of the channel.
+chan_id | string | / The unique identifier of the channel.
+fee_base_msat | int64 | / The base fee of the channel denominated in millisatoshis.
+fee_proportional_millionths | int64 | * The fee rate of the channel for sending one satoshi across it denominated in millionths of a satoshi.
+cltv_expiry_delta | int64 | / The time-lock delta of the channel.
 
 
 ## InitWalletRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-wallet_password | byte |  wallet_password is the passphrase that should be used to encrypt the wallet. This MUST be at least 8 chars in length. After creation, this password is required to unlock the daemon.
-cipher_seed_mnemonic | array string |  cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This may have been generated by the GenSeed method, or be an existing seed.
-aezeed_passphrase | byte |  aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
-recovery_window | int32 |  recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
-channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) |  channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
+wallet_password | byte | * wallet_password is the passphrase that should be used to encrypt the wallet. This MUST be at least 8 chars in length. After creation, this password is required to unlock the daemon.
+cipher_seed_mnemonic | array string | * cipher_seed_mnemonic is a 24-word mnemonic that encodes a prior aezeed cipher seed obtained by the user. This may have been generated by the GenSeed method, or be an existing seed.
+aezeed_passphrase | byte | * aezeed_passphrase is an optional user provided passphrase that will be used to encrypt the generated aezeed cipher seed.
+recovery_window | int32 | * recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
+channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | * channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
 
 
 ## InitWalletResponse
@@ -3754,35 +3763,35 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-memo | string |  An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used.
-receipt | byte | Deprecated. An optional cryptographic receipt of payment which is not implemented.
-r_preimage | byte |  The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage
-r_hash | byte | The hash of the preimage
-value | string | The value of this invoice in satoshis
-settled | boolean | Whether this invoice has been fulfilled
-creation_date | string | When this invoice was created
-settle_date | string | When this invoice was settled
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
-description_hash | byte |  Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request.
-expiry | string | Payment request expiry time in seconds. Default is 3600 (1 hour).
-fallback_addr | string | Fallback on-chain address.
-cltv_expiry | string | Delta to use for the time-lock of the CLTV extended to the final hop.
-route_hints | [array RouteHint](#routehint) |  Route hints that can each be individually used to assist in reaching the invoice's destination.
-private | boolean | Whether this invoice should include routing hints for private channels.
-add_index | string |  The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
-settle_index | string |  The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one.
-amt_paid | string | Deprecated, use amt_paid_sat or amt_paid_msat.
-amt_paid_sat | string |  The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
-amt_paid_msat | string |  The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
-state | [InvoiceInvoiceState](#invoiceinvoicestate) |  The state the invoice is in.
+memo | string | * An optional memo to attach along with the invoice. Used for record keeping purposes for the invoice's creator, and will also be set in the description field of the encoded payment request if the description_hash field is not being used.
+receipt | byte | * Deprecated. An optional cryptographic receipt of payment which is not implemented.
+r_preimage | byte | * The hex-encoded preimage (32 byte) which will allow settling an incoming HTLC payable to this preimage
+r_hash | byte | / The hash of the preimage
+value | string | / The value of this invoice in satoshis
+settled | boolean | / Whether this invoice has been fulfilled
+creation_date | string | / When this invoice was created
+settle_date | string | / When this invoice was settled
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
+description_hash | byte | * Hash (SHA-256) of a description of the payment. Used if the description of payment (memo) is too long to naturally fit within the description field of an encoded payment request.
+expiry | string | / Payment request expiry time in seconds. Default is 3600 (1 hour).
+fallback_addr | string | / Fallback on-chain address.
+cltv_expiry | string | / Delta to use for the time-lock of the CLTV extended to the final hop.
+route_hints | [array RouteHint](#routehint) | * Route hints that can each be individually used to assist in reaching the invoice's destination.
+private | boolean | / Whether this invoice should include routing hints for private channels.
+add_index | string | * The "add" index of this invoice. Each newly created invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all added invoices with an add_index greater than this one.
+settle_index | string | * The "settle" index of this invoice. Each newly settled invoice will increment this index making it monotonically increasing. Callers to the SubscribeInvoices call can use this to instantly get notified of all settled invoices with an settle_index greater than this one.
+amt_paid | string | / Deprecated, use amt_paid_sat or amt_paid_msat.
+amt_paid_sat | string | * The amount that was accepted for this invoice, in satoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
+amt_paid_msat | string | * The amount that was accepted for this invoice, in millisatoshis. This will ONLY be set if this invoice has been settled. We provide this field as if the invoice was created with a zero value, then we need to record what amount was ultimately accepted. Additionally, it's possible that the sender paid MORE that was specified in the original invoice. So we'll record that here as well.
+state | [InvoiceInvoiceState](#invoiceinvoicestate) | * The state the invoice is in.
 
 
 ## LightningAddress
 
 Field | Type | Description
 ----- | ---- | ----------- 
-pubkey | string | The identity pubkey of the Lightning node
-host | string | The network location of the lightning node, e.g. `69.69.69.69:1337` or `localhost:10011`
+pubkey | string | / The identity pubkey of the Lightning node
+host | string | / The network location of the lightning node, e.g. `69.69.69.69:1337` or `localhost:10011`
 
 
 ## LightningNode
@@ -3800,45 +3809,45 @@ color | string |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-channels | [array Channel](#channel) | The list of active channels
+channels | [array Channel](#channel) | / The list of active channels
 
 
 ## ListInvoiceResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-invoices | [array Invoice](#invoice) |  A list of invoices from the time slice of the time series specified in the request.
-last_index_offset | string |  The index of the last item in the set of returned invoices. This can be used to seek further, pagination style.
-first_index_offset | string |  The index of the last item in the set of returned invoices. This can be used to seek backwards, pagination style.
+invoices | [array Invoice](#invoice) | * A list of invoices from the time slice of the time series specified in the request.
+last_index_offset | string | * The index of the last item in the set of returned invoices. This can be used to seek further, pagination style.
+first_index_offset | string | * The index of the last item in the set of returned invoices. This can be used to seek backwards, pagination style.
 
 
 ## ListPaymentsResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-payments | [array Payment](#payment) | The list of payments
+payments | [array Payment](#payment) | / The list of payments
 
 
 ## ListPeersResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-peers | [array Peer](#peer) | The list of currently connected peers
+peers | [array Peer](#peer) | / The list of currently connected peers
 
 
 ## ListUnspentResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-utxos | [array Utxo](#utxo) | A list of utxos
+utxos | [array Utxo](#utxo) | / A list of utxos
 
 
 ## MultiChanBackup
 
 Field | Type | Description
 ----- | ---- | ----------- 
-chan_points | [array ChannelPoint](#channelpoint) |  Is the set of all channels that are included in this multi-channel backup.
-multi_chan_backup | byte |  A single encrypted blob containing all the static channel backups of the channel listed above. This can be stored as a single file or blob, and safely be replaced with any prior/future versions.
+chan_points | [array ChannelPoint](#channelpoint) | * Is the set of all channels that are included in this multi-channel backup.
+multi_chan_backup | byte | * A single encrypted blob containing all the static channel backups of the channel listed above. This can be stored as a single file or blob, and safely be replaced with any prior/future versions.
 
 
 ## NetworkInfo
@@ -3855,13 +3864,14 @@ avg_channel_size | double |
 min_channel_size | string | 
 max_channel_size | string | 
 median_channel_size_sat | string | 
+num_zombie_chans | string | The number of edges marked as zombies.
 
 
 ## NewAddressResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-address | string | The newly generated wallet address
+address | string | / The newly generated wallet address
 
 
 ## NodeAddress
@@ -3876,10 +3886,10 @@ addr | string |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-node | [LightningNode](#lightningnode) |  An individual vertex/node within the channel graph. A node is connected to other nodes by one or more channel edges emanating from it. As the graph is directed, a node will also have an incoming edge attached to it for each outgoing edge.
-num_channels | int64 | The total number of channels for the node.
-total_capacity | string | The sum of all channels capacity for the node, denominated in satoshis.
-channels | [array ChannelEdge](#channeledge) | A list of all public channels for the node.
+node | [LightningNode](#lightningnode) | * An individual vertex/node within the channel graph. A node is connected to other nodes by one or more channel edges emanating from it. As the graph is directed, a node will also have an incoming edge attached to it for each outgoing edge.
+num_channels | int64 | / The total number of channels for the node.
+total_capacity | string | / The sum of all channels capacity for the node, denominated in satoshis.
+channels | [array ChannelEdge](#channeledge) | / A list of all public channels for the node.
 
 
 ## NodeUpdate
@@ -3897,17 +3907,17 @@ color | string |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-node_pubkey | byte | The pubkey of the node to open a channel with
-node_pubkey_string | string | The hex encoded pubkey of the node to open a channel with
-local_funding_amount | string | The number of satoshis the wallet should commit to the channel
-push_sat | string | The number of satoshis to push to the remote side as part of the initial commitment state
-target_conf | int32 | The target number of blocks that the funding transaction should be confirmed by.
-sat_per_byte | string | A manual fee rate set in sat/byte that should be used when crafting the funding transaction.
-private | boolean | Whether this channel should be private, not announced to the greater network.
-min_htlc_msat | string | The minimum value in millisatoshi we will require for incoming HTLCs on the channel.
-remote_csv_delay | int64 | The delay we require on the remote's commitment transaction. If this is not set, it will be scaled automatically with the channel size.
-min_confs | int32 | The minimum number of confirmations each one of your outputs used for the funding transaction must satisfy.
-spend_unconfirmed | boolean | Whether unconfirmed outputs should be used as inputs for the funding transaction.
+node_pubkey | byte | / The pubkey of the node to open a channel with
+node_pubkey_string | string | / The hex encoded pubkey of the node to open a channel with
+local_funding_amount | string | / The number of satoshis the wallet should commit to the channel
+push_sat | string | / The number of satoshis to push to the remote side as part of the initial commitment state
+target_conf | int32 | / The target number of blocks that the funding transaction should be confirmed by.
+sat_per_byte | string | / A manual fee rate set in sat/byte that should be used when crafting the funding transaction.
+private | boolean | / Whether this channel should be private, not announced to the greater network.
+min_htlc_msat | string | / The minimum value in millisatoshi we will require for incoming HTLCs on the channel.
+remote_csv_delay | int64 | / The delay we require on the remote's commitment transaction. If this is not set, it will be scaled automatically with the channel size.
+min_confs | int32 | / The minimum number of confirmations each one of your outputs used for the funding transaction must satisfy.
+spend_unconfirmed | boolean | / Whether unconfirmed outputs should be used as inputs for the funding transaction.
 
 
 ## OpenStatusUpdate
@@ -3922,9 +3932,9 @@ chan_open | [ChannelOpenUpdate](#channelopenupdate) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-txid_bytes | byte | Raw bytes representing the transaction id.
-txid_str | string | Reversed, hex-encoded string representing the transaction id.
-output_index | int64 | The index of the output on the transaction.
+txid_bytes | byte | / Raw bytes representing the transaction id.
+txid_str | string | / Reversed, hex-encoded string representing the transaction id.
+output_index | int64 | / The index of the output on the transaction.
 
 
 ## PayReq
@@ -3947,30 +3957,32 @@ route_hints | [array RouteHint](#routehint) |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-payment_hash | string | The payment hash
-value | string | Deprecated, use value_sat or value_msat.
-creation_date | string | The date of this payment
-path | array string | The path this payment took
-fee | string | The fee paid for this payment in satoshis
-payment_preimage | string | The payment preimage
-value_sat | string | The value of the payment in satoshis
-value_msat | string | The value of the payment in milli-satoshis
-payment_request | string | The optional payment request being fulfilled.
+payment_hash | string | / The payment hash
+value | string | / Deprecated, use value_sat or value_msat.
+creation_date | string | / The date of this payment
+path | array string | / The path this payment took
+fee | string | / Deprecated, use fee_sat or fee_msat.
+payment_preimage | string | / The payment preimage
+value_sat | string | / The value of the payment in satoshis
+value_msat | string | / The value of the payment in milli-satoshis
+payment_request | string | / The optional payment request being fulfilled.
 status | [PaymentPaymentStatus](#paymentpaymentstatus) | The status of the payment.
+fee_sat | string | /  The fee paid for this payment in satoshis
+fee_msat | string | /  The fee paid for this payment in milli-satoshis
 
 
 ## Peer
 
 Field | Type | Description
 ----- | ---- | ----------- 
-pub_key | string | The identity pubkey of the peer
-address | string | Network address of the peer; eg `127.0.0.1:10011`
-bytes_sent | string | Bytes of data transmitted to this peer
-bytes_recv | string | Bytes of data transmitted from this peer
-sat_sent | string | Satoshis sent to this peer
-sat_recv | string | Satoshis received from this peer
-inbound | boolean | A channel is inbound if the counterparty initiated the channel
-ping_time | string | Ping time to this peer
+pub_key | string | / The identity pubkey of the peer
+address | string | / Network address of the peer; eg `127.0.0.1:10011`
+bytes_sent | string | / Bytes of data transmitted to this peer
+bytes_recv | string | / Bytes of data transmitted from this peer
+sat_sent | string | / Satoshis sent to this peer
+sat_recv | string | / Satoshis received from this peer
+inbound | boolean | / A channel is inbound if the counterparty initiated the channel
+ping_time | string | / Ping time to this peer
 sync_type | [PeerSyncType](#peersynctype) | The type of sync we are currently performing with this peer.
 
 
@@ -3978,23 +3990,23 @@ sync_type | [PeerSyncType](#peersynctype) | The type of sync we are currently pe
 
 Field | Type | Description
 ----- | ---- | ----------- 
-total_limbo_balance | string | The balance in satoshis encumbered in pending channels
-pending_open_channels | [array PendingChannelsResponsePendingOpenChannel](#pendingchannelsresponsependingopenchannel) | Channels pending opening
-pending_closing_channels | [array PendingChannelsResponseClosedChannel](#pendingchannelsresponseclosedchannel) | Channels pending closing
-pending_force_closing_channels | [array PendingChannelsResponseForceClosedChannel](#pendingchannelsresponseforceclosedchannel) | Channels pending force closing
-waiting_close_channels | [array PendingChannelsResponseWaitingCloseChannel](#pendingchannelsresponsewaitingclosechannel) | Channels waiting for closing tx to confirm
+total_limbo_balance | string | / The balance in satoshis encumbered in pending channels
+pending_open_channels | [array PendingChannelsResponsePendingOpenChannel](#pendingchannelsresponsependingopenchannel) | / Channels pending opening
+pending_closing_channels | [array PendingChannelsResponseClosedChannel](#pendingchannelsresponseclosedchannel) | / Channels pending closing
+pending_force_closing_channels | [array PendingChannelsResponseForceClosedChannel](#pendingchannelsresponseforceclosedchannel) | / Channels pending force closing
+waiting_close_channels | [array PendingChannelsResponseWaitingCloseChannel](#pendingchannelsresponsewaitingclosechannel) | / Channels waiting for closing tx to confirm
 
 
 ## PendingHTLC
 
 Field | Type | Description
 ----- | ---- | ----------- 
-incoming | boolean | The direction within the channel that the htlc was sent
-amount | string | The total value of the htlc
-outpoint | string | The final output to be swept back to the user's wallet
-maturity_height | int64 | The next block height at which we can spend the current stage
-blocks_til_maturity | int32 |  The number of blocks remaining until the current stage can be swept. Negative values indicate how many blocks have passed since becoming mature.
-stage | int64 | Indicates whether the htlc is in its first or second stage of recovery
+incoming | boolean | / The direction within the channel that the htlc was sent
+amount | string | / The total value of the htlc
+outpoint | string | / The final output to be swept back to the user's wallet
+maturity_height | int64 | / The next block height at which we can spend the current stage
+blocks_til_maturity | int32 | * The number of blocks remaining until the current stage can be swept. Negative values indicate how many blocks have passed since becoming mature.
+stage | int64 | / Indicates whether the htlc is in its first or second stage of recovery
 
 
 ## PendingUpdate
@@ -4009,11 +4021,11 @@ output_index | int64 |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-global | boolean | If set, then this update applies to all currently active channels.
-chan_point | [ChannelPoint](#channelpoint) | If set, this update will target a specific channel.
-base_fee_msat | string | The base fee charged regardless of the number of milli-satoshis sent.
-fee_rate | double | The effective fee rate in milli-satoshis. The precision of this value goes up to 6 decimal places, so 1e-6.
-time_lock_delta | int64 | The required timelock delta for HTLCs forwarded over the channel.
+global | boolean | / If set, then this update applies to all currently active channels.
+chan_point | [ChannelPoint](#channelpoint) | / If set, this update will target a specific channel.
+base_fee_msat | string | / The base fee charged regardless of the number of milli-satoshis sent.
+fee_rate | double | / The effective fee rate in milli-satoshis. The precision of this value goes up to 6 decimal places, so 1e-6.
+time_lock_delta | int64 | / The required timelock delta for HTLCs forwarded over the channel.
 
 
 ## PolicyUpdateResponse
@@ -4045,19 +4057,19 @@ multi_chan_backup | byte |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-total_time_lock | int64 |  The cumulative (final) time lock across the entire route.  This is the CLTV value that should be extended to the first hop in the route. All other hops will decrement the time-lock as advertised, leaving enough time for all hops to wait for or present the payment preimage to complete the payment.
-total_fees | string |  The sum of the fees paid at each hop within the final route.  In the case of a one-hop payment, this value will be zero as we don't need to pay a fee to ourselves.
-total_amt | string |  The total amount of funds required to complete a payment over this route. This value includes the cumulative fees at each hop. As a result, the HTLC extended to the first-hop in the route will need to have at least this many satoshis, otherwise the route will fail at an intermediate node due to an insufficient amount of fees.
-hops | [array Hop](#hop) |  Contains details concerning the specific forwarding details at each hop.
-total_fees_msat | string |  The total fees in millisatoshis.
-total_amt_msat | string |  The total amount in millisatoshis.
+total_time_lock | int64 | * The cumulative (final) time lock across the entire route.  This is the CLTV value that should be extended to the first hop in the route. All other hops will decrement the time-lock as advertised, leaving enough time for all hops to wait for or present the payment preimage to complete the payment.
+total_fees | string | * The sum of the fees paid at each hop within the final route.  In the case of a one-hop payment, this value will be zero as we don't need to pay a fee to ourselves.
+total_amt | string | * The total amount of funds required to complete a payment over this route. This value includes the cumulative fees at each hop. As a result, the HTLC extended to the first-hop in the route will need to have at least this many satoshis, otherwise the route will fail at an intermediate node due to an insufficient amount of fees.
+hops | [array Hop](#hop) | * Contains details concerning the specific forwarding details at each hop.
+total_fees_msat | string | * The total fees in millisatoshis.
+total_amt_msat | string | * The total amount in millisatoshis.
 
 
 ## RouteHint
 
 Field | Type | Description
 ----- | ---- | ----------- 
-hop_hints | [array HopHint](#hophint) |  A list of hop hints that when chained together can assist in reaching a specific destination.
+hop_hints | [array HopHint](#hophint) | * A list of hop hints that when chained together can assist in reaching a specific destination.
 
 
 ## RoutingPolicy
@@ -4070,47 +4082,48 @@ fee_base_msat | string |
 fee_rate_milli_msat | string | 
 disabled | boolean | 
 max_htlc_msat | string | 
+last_update | int64 | 
 
 
 ## SendCoinsRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-addr | string | The address to send coins to
-amount | string | The amount in satoshis to send
-target_conf | int32 | The target number of blocks that this transaction should be confirmed by.
-sat_per_byte | string | A manual fee rate set in sat/byte that should be used when crafting the transaction.
-send_all | boolean |  If set, then the amount field will be ignored, and lnd will attempt to send all the coins under control of the internal wallet to the specified address.
+addr | string | / The address to send coins to
+amount | string | / The amount in satoshis to send
+target_conf | int32 | / The target number of blocks that this transaction should be confirmed by.
+sat_per_byte | string | / A manual fee rate set in sat/byte that should be used when crafting the transaction.
+send_all | boolean | * If set, then the amount field will be ignored, and lnd will attempt to send all the coins under control of the internal wallet to the specified address.
 
 
 ## SendCoinsResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-txid | string | The transaction ID of the transaction
+txid | string | / The transaction ID of the transaction
 
 
 ## SendManyResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-txid | string | The id of the transaction
+txid | string | / The id of the transaction
 
 
 ## SendRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-dest | byte | The identity pubkey of the payment recipient
-dest_string | string | The hex-encoded identity pubkey of the payment recipient
-amt | string | Number of satoshis to send.
-payment_hash | byte | The hash to use within the payment's HTLC
-payment_hash_string | string | The hex-encoded hash to use within the payment's HTLC
-payment_request | string |  A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
-final_cltv_delta | int32 |  The CLTV delta from the current height that should be used to set the timelock for the final hop.
-fee_limit | [FeeLimit](#feelimit) |  The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment.
-outgoing_chan_id | string |  The channel id of the channel that must be taken to the first hop. If zero, any channel may be used.
-cltv_limit | int64 |  An optional maximum total time lock for the route. If zero, there is no maximum enforced.
+dest | byte | / The identity pubkey of the payment recipient
+dest_string | string | / The hex-encoded identity pubkey of the payment recipient
+amt | string | / Number of satoshis to send.
+payment_hash | byte | / The hash to use within the payment's HTLC
+payment_hash_string | string | / The hex-encoded hash to use within the payment's HTLC
+payment_request | string | * A bare-bones invoice for a payment within the Lightning Network.  With the details of the invoice, the sender has all the data necessary to send a payment to the recipient.
+final_cltv_delta | int32 | * The CLTV delta from the current height that should be used to set the timelock for the final hop.
+fee_limit | [FeeLimit](#feelimit) | * The maximum number of satoshis that will be paid as a fee of the payment. This value can be represented either as a percentage of the amount being sent, or as a fixed amount of the maximum fee the user is willing the pay to send the payment.
+outgoing_chan_id | string | * The channel id of the channel that must be taken to the first hop. If zero, any channel may be used.
+cltv_limit | int64 | *  An optional maximum total time lock for the route. If zero, there is no maximum enforced.
 
 
 ## SendResponse
@@ -4127,23 +4140,23 @@ payment_hash | byte |
 
 Field | Type | Description
 ----- | ---- | ----------- 
-payment_hash | byte | The payment hash to use for the HTLC.
-payment_hash_string | string | An optional hex-encoded payment hash to be used for the HTLC.
-route | [Route](#route) | Route that should be used to attempt to complete the payment.
+payment_hash | byte | / The payment hash to use for the HTLC.
+payment_hash_string | string | / An optional hex-encoded payment hash to be used for the HTLC.
+route | [Route](#route) | / Route that should be used to attempt to complete the payment.
 
 
 ## SignMessageRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-msg | byte | The message to be signed
+msg | byte | / The message to be signed
 
 
 ## SignMessageResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-signature | string | The signature for the given message
+signature | string | / The signature for the given message
 
 
 ## StopResponse
@@ -4155,31 +4168,31 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-tx_hash | string | The transaction hash
-amount | string | The transaction amount, denominated in satoshis
-num_confirmations | int32 | The number of confirmations
-block_hash | string | The hash of the block this transaction was included in
-block_height | int32 | The height of the block this transaction was included in
-time_stamp | string | Timestamp of this transaction
-total_fees | string | Fees paid for this transaction
-dest_addresses | array string | Addresses that received funds for this transaction
-raw_tx_hex | string | The raw transaction hex.
+tx_hash | string | / The transaction hash
+amount | string | / The transaction amount, denominated in satoshis
+num_confirmations | int32 | / The number of confirmations
+block_hash | string | / The hash of the block this transaction was included in
+block_height | int32 | / The height of the block this transaction was included in
+time_stamp | string | / Timestamp of this transaction
+total_fees | string | / Fees paid for this transaction
+dest_addresses | array string | / Addresses that received funds for this transaction
+raw_tx_hex | string | / The raw transaction hex.
 
 
 ## TransactionDetails
 
 Field | Type | Description
 ----- | ---- | ----------- 
-transactions | [array Transaction](#transaction) | The list of transactions relevant to the wallet.
+transactions | [array Transaction](#transaction) | / The list of transactions relevant to the wallet.
 
 
 ## UnlockWalletRequest
 
 Field | Type | Description
 ----- | ---- | ----------- 
-wallet_password | byte |  wallet_password should be the current valid passphrase for the daemon. This will be required to decrypt on-disk material that the daemon requires to function properly.
-recovery_window | int32 |  recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
-channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) |  channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
+wallet_password | byte | * wallet_password should be the current valid passphrase for the daemon. This will be required to decrypt on-disk material that the daemon requires to function properly.
+recovery_window | int32 | * recovery_window is an optional argument specifying the address lookahead when restoring a wallet seed. The recovery window applies to each individual branch of the BIP44 derivation paths. Supplying a recovery window of zero indicates that no addresses should be recovered, such after the first initialization of the wallet.
+channel_backups | [ChanBackupSnapshot](#chanbackupsnapshot) | * channel_backups is an optional argument that allows clients to recover the settled funds within a set of channels. This should be populated if the user was unable to close out all channels and sweep funds before partial or total data loss occurred. If specified, then after on-chain recovery of funds, lnd begin to carry out the data loss recovery protocol in order to recover the funds in each channel from a remote force closed transaction.
 
 
 ## UnlockWalletResponse
@@ -4191,12 +4204,12 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-type | [AddressType](#addresstype) | The type of address
-address | string | The address
-amount_sat | string | The value of the unspent coin in satoshis
-pk_script | string | The pkscript in hex
-outpoint | [OutPoint](#outpoint) | The outpoint in format txid:n
-confirmations | string | The number of confirmations for the Utxo
+type | [AddressType](#addresstype) | / The type of address
+address | string | / The address
+amount_sat | string | / The value of the unspent coin in satoshis
+pk_script | string | / The pkscript in hex
+outpoint | [OutPoint](#outpoint) | / The outpoint in format txid:n
+confirmations | string | / The number of confirmations for the Utxo
 
 
 ## VerifyChanBackupResponse
@@ -4208,23 +4221,23 @@ This definition has no parameters.
 
 Field | Type | Description
 ----- | ---- | ----------- 
-msg | byte | The message over which the signature is to be verified
-signature | string | The signature to be verified over the given message
+msg | byte | / The message over which the signature is to be verified
+signature | string | / The signature to be verified over the given message
 
 
 ## VerifyMessageResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-valid | boolean | Whether the signature was valid over the given message
-pubkey | string | The pubkey recovered from the signature
+valid | boolean | / Whether the signature was valid over the given message
+pubkey | string | / The pubkey recovered from the signature
 
 
 ## WalletBalanceResponse
 
 Field | Type | Description
 ----- | ---- | ----------- 
-total_balance | string | The balance of the wallet
-confirmed_balance | string | The confirmed balance of a wallet(with >= 1 confirmations)
-unconfirmed_balance | string | The unconfirmed balance of a wallet(with 0 confirmations)
+total_balance | string | / The balance of the wallet
+confirmed_balance | string | / The confirmed balance of a wallet(with >= 1 confirmations)
+unconfirmed_balance | string | / The unconfirmed balance of a wallet(with 0 confirmations)
 
