@@ -63,7 +63,7 @@ curl -o rpc.swagger.json -s https://raw.githubusercontent.com/lightningnetwork/l
 protoc -I. -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --doc_out=json,rpc.json:. rpc.proto
 ```
 
-Now, ensure that you have [`lnd` installed](http://http://dev.lightning.community/installation/)
+Now, ensure that you have [`lnd` installed](https://dev.lightning.community/guides/installation/)
 and your `$GOPATH` set, so that `lncli` is available from the command line.
 Let's run the script to render our local Slate docs:
 ```shell
